@@ -16,22 +16,23 @@ import java.util.List;
 @Tag(name = "柜机类型接口管理")
 @RestController
 @RequestMapping("/cabinetType")
-public class cabinetTypeController extends BaseController {
-
+public class CabinetTypeController extends BaseController
+{
     @Autowired
     private ICabinetTypeService cabinetTypeService;
 
     /**
      * 查询柜机类型列表
-     * @param cabinetType
-     * @return 该类型柜机的列表
      */
     @Operation(summary = "查询柜机类型列表")
     @GetMapping("/list")
-    public TableDataInfo list(CabinetType cabinetType) {
+    public TableDataInfo list(CabinetType cabinetType)
+    {
         startPage();
         List<CabinetType> list = cabinetTypeService.selectCabinetTypeList(cabinetType);
         return getDataTable(list);
-
     }
+
+
+
 }

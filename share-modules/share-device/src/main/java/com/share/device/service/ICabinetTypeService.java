@@ -5,12 +5,15 @@ import com.share.device.domain.CabinetType;
 
 import java.util.List;
 
-public interface ICabinetTypeService extends IService<CabinetType> {
+public interface ICabinetTypeService extends IService<CabinetType>
+{
 
     /**
-     * 查询该类型柜机列表
-     * @param cabinetType
-     * @return
+     * 查询柜机类型列表
+     *
+     * @param cabinetType 柜机类型
+     * @return 柜机类型集合
      */
-    List<CabinetType> selectCabinetTypeList(CabinetType cabinetType);
+    public List<CabinetType> selectCabinetTypeList(CabinetType cabinetType);
+
 }
