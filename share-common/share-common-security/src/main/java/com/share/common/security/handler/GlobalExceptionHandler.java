@@ -8,6 +8,7 @@ import com.share.common.core.exception.auth.NotPermissionException;
 import com.share.common.core.exception.auth.NotRoleException;
 import com.share.common.core.utils.StringUtils;
 import com.share.common.core.web.domain.AjaxResult;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindException;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.stream.Collectors;
 
 /**
  * 全局异常处理器
@@ -136,6 +138,10 @@ public class GlobalExceptionHandler
     {
         log.error(e.getMessage(), e);
         String message = e.getBindingResult().getFieldError().getDefaultMessage();
+        String fieldErrorMessage = e.getBindingResult().getFieldErrors().stream().map(
+                err -> String.format("%s:%s", err.getField(), err.getDefaultMessage())
+        ).collect(Collectors.joining(";"));
+        log.warn("参数校验失败：{}", fieldErrorMessage);
         return AjaxResult.error(message);
     }
 
